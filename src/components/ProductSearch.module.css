@@ -1,0 +1,148 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.searchButton {
+  padding: 10px 18px;
+  font-size: 16px;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.emptyMessage {
+  color: #666;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableHeaderRow {
+  border-bottom: 2px solid #ddd;
+}
+
+.tableRow {
+  border-bottom: 1px solid #eee;
+}
+
+.tableCell {
+  padding: 8px;
+}
+
+.numericCell {
+  padding: 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.priceTag {
+  font-weight: 600;
+  color: #111;
+}
+
+.cheapestBadge {
+  background-color: #e6f4ea;
+  color: #137333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.storeCell {
+  padding: 8px;
+  text-align: center;
+}
+
+.bonusBadge {
+  display: inline-block;
+  background-color: #ff6b00; /* Bright promotion orange */
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.ah_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/ah.webp');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.jm_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/jumbo.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.aldi_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/aldi.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.dekamarkt_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/dekamarkt.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.hoogvliet_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/hoogvliet.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
