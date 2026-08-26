@@ -1,3 +1,9 @@
+# PrijsVink
+Find the cheapest product in supermarkets.
+
+# Demo
+<img width="921" height="532" alt="demo" src="https://github.com/user-attachments/assets/3d630df2-b6e3-4982-bc9b-f5bac3d72711" />
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
