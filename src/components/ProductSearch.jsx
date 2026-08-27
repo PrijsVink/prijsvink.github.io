@@ -31,7 +31,7 @@ export default function ProductSearch() {
         ...(origin && { origin }),
         ...(freshOnly && { fresh_only: 'true' }),
       })
-      const url = `https://0x2d19ed1571399daed3783441d1ddb16e54ade11e.diode.link/api/v1/products/cheapest?${params.toString()}`
+      const url = `https://api.prijsvink.xyz/api/v1/products/cheapest?${params.toString()}`
       const response = await fetch(url);
 
       if (!response.ok) {
