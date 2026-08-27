@@ -1,3 +1,7 @@
+<div align="center">
+  <img width="500" alt="PrijsVink-logo-white-background" src="https://github.com/user-attachments/assets/26894f05-1730-4e4d-9c3e-cb185717f137" />
+</div>
+
 # PrijsVink
 Find the cheapest product in supermarkets.
 
