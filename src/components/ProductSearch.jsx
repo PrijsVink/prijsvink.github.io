@@ -3,6 +3,8 @@ import styles from './ProductSearch.module.css';
 
 export default function ProductSearch() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [origin, setOrigin] = useState('');
+  const [freshOnly, setFreshOnly] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,11 +26,13 @@ export default function ProductSearch() {
     setError(null);
 
     try {
-      const response = await fetch(
-        `https://0x2d19ed1571399daed3783441d1ddb16e54ade11e.diode.link/api/v1/products/cheapest?origin=holland&fresh_only=true&q=${encodeURIComponent(
-          searchTerm
-        )}`
-      );
+      const params = new URLSearchParams({
+        q: searchTerm,
+        ...(origin && { origin }),
+        ...(freshOnly && { fresh_only: 'true' }),
+      })
+      const url = `https://0x2d19ed1571399daed3783441d1ddb16e54ade11e.diode.link/api/v1/products/cheapest?${params.toString()}`
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error('Failed to fetch product data');
@@ -75,10 +79,29 @@ export default function ProductSearch() {
           onKeyDown={handleKeyDown}
           className={styles.searchInput}
         />
+
+        <select
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+          className={styles.selectFilter}
+        >
+          <option value="">All Origins</option>
+          <option value="holland">Holland Only</option>
+        </select>
+
         <button onClick={fetchProducts} className={styles.searchButton}>
           Search
         </button>
       </div>
+
+      {/* <label className={styles.checkboxLabel}>
+        <input 
+          type="checkbox" 
+          checked={freshOnly} 
+          onChange={(e) => setFreshOnly(e.target.checked)} 
+        />
+        Fresh items only
+      </label> */}
 
       {/* Loading & Error States */}
       {loading && <p>Searching products for "{searchTerm}"...</p>}

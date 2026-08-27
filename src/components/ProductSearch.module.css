@@ -146,3 +146,25 @@
   background-repeat: no-repeat;
   vertical-align: middle;
 }
+
+.dirk_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/dirk.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.spar_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/spar.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
