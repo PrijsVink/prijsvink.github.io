@@ -122,7 +122,7 @@ export default function ProductSearch() {
             </tr>
           </thead>
           <tbody>
-            {products.slice(0, 10).map((item, index) => (
+            {products.map((item, index) => (
               <tr key={item.id || index} className={styles.tableRow}>
                 <td className={styles.tableCell}>
                   <span>{item.title + (item.retailer !== 'jm_nl' ? ' ' + (item.unit_size || '') : '')}</span>
