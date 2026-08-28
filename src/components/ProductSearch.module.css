@@ -168,3 +168,20 @@
   background-repeat: no-repeat;
   vertical-align: middle;
 }
+
+@media (max-width: 480px) {
+  .searchInput {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .searchButton {
+    padding: 12px 12px;
+    font-size: 12px;
+  }
+
+  select {
+    padding: 12px 12px;
+    font-size: 12px;
+  }
+}
