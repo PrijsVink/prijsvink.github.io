@@ -26,6 +26,13 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .errorMessage {
@@ -171,17 +178,23 @@
 
 @media (max-width: 480px) {
   .searchInput {
+    width: 40%;
     padding: 8px 12px;
     font-size: 12px;
   }
 
-  .searchButton {
+  select {
+    width: 30%;
     padding: 12px 12px;
     font-size: 12px;
   }
 
-  select {
-    padding: 12px 12px;
-    font-size: 12px;
+  .searchButton {
+    width: 10%;
+    padding: 0;
+  }
+
+  .buttonText {
+    display: none;
   }
 }
