@@ -1,7 +1,19 @@
 import { useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import brandImg from './assets/brand-logo.png'
 import './App.css'
-import ProductSearch from './components/ProductSearch';
+import ProductSearch from './components/ProductSearch'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
+      refetchOnWindowFocus: false,
+      retry: 2,
+    },
+  },
+})
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,7 +39,9 @@ function App() {
           <p>Let's try it out</p>
         </div>
         <div>
-          <ProductSearch />
+          <QueryClientProvider client={queryClient}>
+            <ProductSearch />
+          </QueryClientProvider>
         </div>
       </section>
 

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import styles from './ProductSearch.module.css';
+import React, { useState } from 'react'
+import styles from './ProductSearch.module.css'
+import { useQuery } from '@tanstack/react-query'
 
 export default function ProductSearch() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [origin, setOrigin] = useState('');
-  const [freshOnly, setFreshOnly] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [origin, setOrigin] = useState('')
+  const [freshOnly, setFreshOnly] = useState(false)
+
   const supermarketMap = {
     ah_nl: 'Albert Heijn',
     jm_nl: 'Jumbo',
@@ -19,64 +18,67 @@ export default function ProductSearch() {
     dirk_nl: 'Dirk',
   }
 
-  const fetchProducts = async () => {
-    if (!searchTerm.trim()) return;
+  const fetchProducts = async (searchTerm, origin) => {
+    const params = new URLSearchParams({
+      q: searchTerm,
+      ...(origin && { origin }),
+    })
 
-    setLoading(true);
-    setError(null);
+    const url = `https://api.prijsvink.xyz/api/v1/products/cheapest?${params.toString()}`
+    const response = await fetch(url)
 
-    try {
-      const params = new URLSearchParams({
-        q: searchTerm,
-        ...(origin && { origin }),
-        ...(freshOnly && { fresh_only: 'true' }),
-      })
-      const url = `https://api.prijsvink.xyz/api/v1/products/cheapest?${params.toString()}`
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch product data');
-      }
-
-      const data = (await response.json()).map((p) => {
-        const parsed = p.last_updated.split('T')
-        p.last_updated = parsed[0]
-        return p
-      });
-      setProducts(data || []);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error('Failed to fetch product data')
     }
-  };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      if (loading) return
-      fetchProducts();
-    }
-  };
-  
+    const rawData = await response.json()
+    return rawData.map((p) => ({
+      ...p,
+      last_updated: p.last_updated ? p.last_updated.split('T')[0] : ''
+    }))
+  }
+
+  const [activeSearch, setActiveSearch] = useState(null)
+
+  const { 
+    data: products = [], 
+    isFetching, 
+    isFetched, 
+    error 
+  } = useQuery({
+    queryKey: ['products', activeSearch?.term, activeSearch?.origin],
+    queryFn: () => fetchProducts(activeSearch.term, activeSearch.origin),
+    enabled: !!activeSearch?.term,
+    staleTime: 1000 * 60 * 5,
+  })
+
+  const handleClick = (e) => {
+    if (isFetching) return
+    if (!searchTerm.trim()) return
+    
+    setActiveSearch({
+      term: searchTerm,
+      origin
+    })
+  }
+
   const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
+    if (!dateString) return ''
+    const date = new Date(dateString)
     return date.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
-    });
-  };
+    })
+  }
 
   return (
     <div className={styles.container}>
-      {/* Input Group */}
       <div className={styles.inputGroup}>
         <input
           type="text"
           value={searchTerm}
           placeholder="Enter product (e.g., aardbeien)"
           onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyDown}
           className={styles.searchInput}
         />
 
@@ -89,26 +91,15 @@ export default function ProductSearch() {
           <option value="holland">Holland Only</option>
         </select>
 
-        <button onClick={fetchProducts} className={styles.searchButton}>
-          Search
+        <button onClick={handleClick} className={styles.searchButton} disabled={isFetching}>
+          {isFetching ? 'Searching...' : 'Search'}
         </button>
       </div>
 
-      {/* <label className={styles.checkboxLabel}>
-        <input 
-          type="checkbox" 
-          checked={freshOnly} 
-          onChange={(e) => setFreshOnly(e.target.checked)} 
-        />
-        Fresh items only
-      </label> */}
+      {isFetching && <p>Searching products for "{searchTerm}"...</p>}
+      {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
 
-      {/* Loading & Error States */}
-      {loading && <p>Searching products for "{searchTerm}"...</p>}
-      {error && <p className={styles.errorMessage}>Error: {error}</p>}
-
-      {/* Results Table */}
-      {!loading && products.length > 0 && (
+      {!isFetching && products.length > 0 && (
         <table className={styles.resultsTable}>
           <thead>
             <tr className={styles.tableHeaderRow}>
@@ -122,10 +113,10 @@ export default function ProductSearch() {
             {products.slice(0, 10).map((item, index) => (
               <tr key={item.id || index} className={styles.tableRow}>
                 <td className={styles.tableCell}>
-                  <span>{item.title + (item.retailer !== 'jm_nl' ? ' ' + item.unit_size : '')}</span>
-                  {item.value_note === 'bonus' && (
-                    <span className={styles.bonusBadge}>
-                      {'Bonus'}
+                  <span>{item.title + (item.retailer !== 'jm_nl' ? ' ' + (item.unit_size || '') : '')}</span>
+                  {item.is_bonus && item.value_note?.length > 0 && (
+                    <span className={styles.bonusBadge} title={item.value_note}>
+                      {item.value_note}
                     </span>
                   )}
                 </td>
@@ -144,9 +135,9 @@ export default function ProductSearch() {
         </table>
       )}
 
-      {!loading && products.length === 0 && searchTerm && !error && (
-        <p className={styles.emptyMessage}>No products found. Press Enter to search.</p>
+      {!isFetching && products.length === 0 && searchTerm && !error && (
+        <p className={styles.emptyMessage}>No products found. Press Enter or click Search.</p>
       )}
     </div>
-  );
+  )
 }
