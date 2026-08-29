@@ -20,16 +20,16 @@ function App() {
 
   return (
     <>
-      <section class="brand-intro">
+      <section className="brand-intro">
         <img
-          class="brand-logo"
+          className="brand-logo"
           src={brandImg}
           alt="PrijsVink"
         />
 
-        <h1 class="brand-name">PrijsVink</h1>
+        <h1 className="brand-name">PrijsVink</h1>
 
-        <p class="brand-tagline">
+        <p className="brand-tagline">
           From every cent to every centilitre, there’s a smarter choice
           for every shopper.
         </p>
