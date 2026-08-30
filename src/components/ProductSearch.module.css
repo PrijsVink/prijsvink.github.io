@@ -121,6 +121,17 @@
   vertical-align: middle;
 }
 
+.lidl_nl_logo {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/logos/lidl.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
 .aldi_nl_logo {
   display: inline-block;
   width: 24px;
