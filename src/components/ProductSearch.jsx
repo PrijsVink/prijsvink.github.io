@@ -4,8 +4,6 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 
 export default function ProductSearch() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [origin, setOrigin] = useState('')
-  const [freshOnly, setFreshOnly] = useState(false)
   const [activeSearch, setActiveSearch] = useState(null)
   const loadMoreRef = useRef(null)
 
@@ -21,13 +19,12 @@ export default function ProductSearch() {
   }
 
   const fetchProducts = async ({ pageParam = 1, queryKey }) => {
-    const [_, searchTerm, origin] = queryKey
+    const [_, searchTerm] = queryKey
     if (!searchTerm || !searchTerm.trim()) return { items: [], nextPage: null }
 
     const params = new URLSearchParams({
       q: searchTerm,
       page: pageParam.toString(),
-      ...(origin && { origin }),
     })
 
     const url = `https://api.prijsvink.xyz/api/v1/products/cheapest?${params.toString()}`
@@ -111,19 +108,10 @@ export default function ProductSearch() {
         <input
           type="text"
           value={searchTerm}
-          placeholder="Enter product (e.g., aardbeien)"
+          placeholder="Enter product (e.g., aardbeien holland)"
           onChange={(e) => setSearchTerm(e.target.value)}
           className={styles.searchInput}
         />
-
-        <select
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-          className={styles.selectFilter}
-        >
-          <option value="">All Origins</option>
-          <option value="holland">Holland Only</option>
-        </select>
 
         <button 
           onClick={handleExecuteSearch} 
