@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import brandImg from './assets/brand-logo.png'
+import brandImg from './assets/brand-hero.png'
 import './App.css'
 import ProductSearch from './components/ProductSearch'
 
@@ -27,17 +27,16 @@ function App() {
           alt="PrijsVink"
         />
 
-        <h1 className="brand-name">PrijsVink</h1>
+        {/* <h1 className="brand-name">PrijsVink</h1> */}
 
         <p className="brand-tagline">
-          From every cent to every centilitre, there’s a smarter choice
-          for every shopper.
+          Vergelijk supermarktprijzen en vind de beste aanbiedingen.
         </p>
       </section>
       <section id="center">
-        <div>
+        {/* <div>
           <p>Let's try it out</p>
-        </div>
+        </div> */}
         <div>
           <QueryClientProvider client={queryClient}>
             <ProductSearch />

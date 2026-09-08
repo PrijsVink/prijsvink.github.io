@@ -35,9 +35,9 @@
 
 .brand-logo {
   display: block;
-  width: 170px;
+  width: 500px;
   height: auto;
-  margin: 0;
+  margin: 15px 0 15px;
 }
 
 .brand-name {
@@ -64,8 +64,7 @@
   }
 
   .brand-logo {
-    width: 150px;
-    margin-bottom: 0;
+    width: 400px;
   }
 
   .brand-name {
@@ -85,8 +84,7 @@
   }
 
   .brand-logo {
-    width: 140px;
-    margin-bottom: 0;
+    width: 300px;
   }
 
   .brand-name {
@@ -108,8 +106,7 @@
   }
 
   .brand-logo {
-    width: 120px;
-    margin-bottom: 0;
+    width: 300px;
   }
 
   .brand-name {
