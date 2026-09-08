@@ -1,38 +1,191 @@
 .container {
-  max-width: 600px;
+  width: min(900px, 100%);
   margin: 0 auto;
   font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.searchForm {
+  width: 100%;
 }
 
 .inputGroup {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 10px;
+  width: min(720px, 100%);
+  margin: 0 auto;
 }
 
 .searchInput {
+  min-width: 0;
   flex: 1;
-  padding: 10px 14px;
+  padding: 13px 16px;
   font-size: 16px;
-  border-radius: 6px;
   border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.searchInput:focus {
+  border-color: #0070f3;
+  box-shadow: 0 0 0 3px rgb(0 112 243 / 12%);
 }
 
 .searchButton {
-  padding: 10px 18px;
-  font-size: 16px;
-  background-color: #0070f3;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
+  gap: 8px;
+
+  background: #0070f3;
+  color: #fff;
+  font-size: 16px;
   font-weight: 500;
+
   cursor: pointer;
+}
+
+.searchButton:hover:not(:disabled) {
+  background: #0064da;
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.retailerFilter {
+  width: min(720px, 100%);
+  margin: 24px auto 0;
+}
+
+.filterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 10px;
+
+  color: #696474;
+  font-size: 14px;
+  text-align: left;
+}
+
+.selectedCount {
+  margin-left: 7px;
+  color: #999;
+}
+
+.selectAllButton {
+  border: 0;
+  padding: 4px;
+
+  background: transparent;
+  color: #0070f3;
+
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.retailerGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(95px, 1fr));
+  gap: 9px;
+}
+
+.retailerChip {
+  min-width: 0;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  box-sizing: border-box;
+  padding: 8px 10px;
+
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+
+  background: #fff;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.retailerChip:hover {
+  border-color: #a8a8a8;
+}
+
+.retailerChipSelected {
+  border-color: #b3d4fa;
+  background: #f6faff;
+}
+
+.retailerChip:focus-within {
+  outline: 2px solid #0070f3;
+  outline-offset: 2px;
+}
+
+.retailerCheckbox {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  flex: 0 0 auto;
+
+  accent-color: #0070f3;
+  cursor: pointer;
+}
+
+.retailerChip > span[aria-hidden='true'] {
+  width: 54px;
+  height: 28px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+.statusMessage {
+  margin-top: 24px;
+}
+
+.loadMore {
+  padding: 1rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
 }
 
 .errorMessage {
@@ -44,9 +197,10 @@
 }
 
 .resultsTable {
-  width: 100%;
+  width: min(720px, 100%);
   border-collapse: collapse;
   text-align: left;
+  margin: 24px auto 0;
 }
 
 .tableHeaderRow {
@@ -185,6 +339,58 @@
   background-position: center;
   background-repeat: no-repeat;
   vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .retailerGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .container {
+    width: 100%;
+  }
+
+  .inputGroup {
+    gap: 8px;
+  }
+
+  .searchInput {
+    padding: 11px 12px;
+    font-size: 16px;
+  }
+
+  .searchButton {
+    min-height: 46px;
+    padding: 0 14px;
+  }
+
+  .retailerFilter {
+    margin-top: 20px;
+  }
+
+  .retailerGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .retailerChip {
+    min-height: 48px;
+    padding: 7px 10px;
+  }
+
+  .retailerChip > span[aria-hidden='true'] {
+    width: 62px;
+    height: 27px;
+  }
+
+  .filterHeader {
+    font-size: 13px;
+  }
+
+  .buttonText {
+    display: inline;
+  }
 }
 
 @media (max-width: 480px) {

@@ -37,11 +37,9 @@ function App() {
         {/* <div>
           <p>Let's try it out</p>
         </div> */}
-        <div>
-          <QueryClientProvider client={queryClient}>
-            <ProductSearch />
-          </QueryClientProvider>
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <ProductSearch />
+        </QueryClientProvider>
       </section>
 
       <section id="spacer"></section>
